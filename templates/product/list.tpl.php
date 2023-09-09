@@ -45,11 +45,11 @@ $list_product = $this->list_product;
 		        <div class="card h-100">
 		          <img class="card-img-top" src="http://placehold.it/500x325" alt="">
 		          <div class="card-body">
-		            <h4 class="card-title"><?php echo $product->produit_label; // Titre objet ?></h4>
-		            <p class="card-text"><?php echo $product->produit_nom; ?></p>
+		            <h4 class="card-title"><?php echo $product->_array_datas["produit_titreobjet"]; // Titre objet ?></h4>
+		            <p class="card-text"><?php echo $product->_array_datas["produit_nom"]; ?></p>
 		          </div>
 		          <div class="card-footer">
-		            <a href="product_detail.php?id=<?php echo $product->getId(); ?>" class="btn btn-primary">Voir le produit</a>
+		            <a href="product_detail.php?id=<?php echo $product->_array_datas["produit_id"]; ?>" class="btn btn-primary">Voir le produit</a>
 		          </div>
 		          <button data-id="<?php echo $product->getId(); ?>" type="button" class="close" aria-label="Close">
     					  <span aria-hidden="true">&times;</span>
