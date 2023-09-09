@@ -1,7 +1,7 @@
 <?php
 namespace FwTest\Classes;
 
-class ProductAction
+class Product
 {
     /**
      * The table name
