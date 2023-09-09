@@ -52,7 +52,7 @@ class AbstractController
 
     public function getConstant()
     {
-        $path = 'config/constant.ini';
+        $path = '../config/constant.ini';
         
         $arrayConstant = parse_ini_file($path, true);
 
