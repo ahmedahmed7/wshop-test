@@ -22,10 +22,10 @@ class Product
     /**
      * The object datas
      *
-     * @access  private
+     * @access  public
      * @var     array
      */
-	private $_array_datas = array();
+	public $_array_datas = array();
 	
     /**
      * The object id
@@ -85,7 +85,7 @@ class Product
      */
 	public static function getAll($db, $begin = 0, $end = 15)
 	{
-		$sql_get = "SELECT p.* FROM " . self::$table_name . " LIMIT " . $begin. ", " . $end;
+		$sql_get = "SELECT * FROM " . self::$table_name . " LIMIT " . $begin. ", " . $end;
 
 		$result = $db->fetchAll($sql_get);
 
@@ -100,17 +100,32 @@ class Product
 		return $array_product;
 	}
 
+    public static function getProductById($db, $pid){
+        $sql_get = "SELECT * FROM " . self::$table_name. " where produit_id=".$pid;
+
+        $result = $db->fetchRow($sql_get);
+
+        return new Product($db, $result);
+    }
+
+
+    public static function update($db,$id,$newName,$newPrice,$newDiscount){
+        $sql_update = "UPDATE " . self::$table_name. " SET produit_titreobjet="."'" . addslashes($newName) . "'".",produit_prixvente="."'" . addslashes($newPrice) . "'".",produit_prixremise=". "'" . addslashes($newDiscount) . "'"."where produit_id=".$id;
+        $result = $db->fetchRow($sql_update);
+        return new Product($db, $result);
+    }
+
+
+
     /**
      * Delete a product.
      *
      * @return     bool if succeed
      */
-	public function delete() 
+	public static function delete($db, $pid)
 	{
-		$id = $this->getId();
-		$sql_delete = "DELETE FROM " . self::$table_name . " WHERE " . self::$pk_name . " = ?";
-
-		return $this->db->query($sql_delete, $id);
+		$sql_delete = "DELETE  FROM " . self::$table_name. " where produit_id = ".$pid;
+		return $db->query($sql_delete);
 	}
 
     /**
@@ -169,13 +184,13 @@ class Product
             return false;
         }
 
-        $sql_dispatch = "SELECT p.*, 
+        $sql_dispatch = "SELECT *, 
                                 IF (produit_lang_titreobjet IS NULL, produit_titreobjet, produit_lang_titreobjet) produit_titreobjet,
                                 IF (produit_lang_nom IS NULL, produit_nom, produit_lang_nom) produit_nom,
                                 IF (produit_lang_description IS NULL, produit_description, produit_lang_description) produit_description
             FROM produit p
             AND pl.fk_lang_id = :lang_id
-            WHERE p.produit_id = :produit_id;";
+            WHERE produit_id = :produit_id;";
 
         $params = [
             'produit_id' => $array_datas['produit_id']

@@ -75,9 +75,9 @@ class Database
             return false;
         }
 
-        if (!$prepare->executeSql($arrayAttributes)) {
+        if (!$prepare->execute($arrayAttributes)) {
             $this->prepare = $prepare;
-            return false
+            return false;
         }
 
         $data = $prepare->fetchAll(\PDO::FETCH_ASSOC);
@@ -123,4 +123,22 @@ class Database
 
         return $data;
     }
+    public function delete($sql, $arrayAttributes = [])
+    {
+        $prepare = $this->object->prepare($sql);
+
+        if (!$prepare) {
+            return false;
+        }
+
+        if (!$prepare->execute($arrayAttributes)) {
+            $this->prepare = $prepare;
+            return false;
+        }
+
+        $rowCount = $prepare->rowCount();
+        $this->prepare = $prepare;
+        return $rowCount > 0;
+    }
+
 }

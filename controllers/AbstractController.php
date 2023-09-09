@@ -66,8 +66,6 @@ class AbstractController
      */
     public function _redirect($url, $code = null)
     {
-        $session = get_session();
-        $session->save();
 
         if ($code == '301') {
             header('HTTP/1.1 301 Moved Permanently');

@@ -50,10 +50,12 @@ $list_product = $this->list_product;
 		          </div>
 		          <div class="card-footer">
 		            <a href="product_detail.php?id=<?php echo $product->_array_datas["produit_id"]; ?>" class="btn btn-primary">Voir le produit</a>
+		            <a href="product_edit.php?id=<?php echo $product->_array_datas["produit_id"]; ?>" class="btn btn-warning m-1">Modifier le produit</a>
 		          </div>
-		          <button data-id="<?php echo $product->getId(); ?>" type="button" class="close" aria-label="Close">
-    					  <span aria-hidden="true">&times;</span>
-    					</button>
+                    <a href="product_delete.php?id=<?php echo $product->_array_datas["produit_id"]; ?>" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </a>
+
 		        </div>
 		     </div>
        	<?php } ?>
